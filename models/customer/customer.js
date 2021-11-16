@@ -37,4 +37,23 @@ const updateCustomer = async (id, data) => {
     .updateOne(query, update_doc, options);
   return result;
 };
-module.exports = { postCustomer, getCustomer, deleteCustomer, updateCustomer };
+
+const loginCustomer = async (email) => {
+  const query = { email };
+  const projection = { password: 0 };
+  if (email != undefined) {
+    const result = await db
+      .get()
+      .collection(collectionName)
+      .findOne(query, projection);
+
+    return result;
+  }
+};
+module.exports = {
+  postCustomer,
+  getCustomer,
+  deleteCustomer,
+  updateCustomer,
+  loginCustomer,
+};

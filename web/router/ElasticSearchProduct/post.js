@@ -1,17 +1,20 @@
 "use strict";
-const products = require("../../../models/products");
+
 const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
+const elasticProduct = require("../../../models/elasticProducts");
 const handler = async (req, res) => {
-  const product_data = req.payload;
-  const product = await products.postProducts(product_data);
+  let result;
+  try {
+    result = await elasticProduct.addProduct(req.payload);
+  } catch (error) {
+    console.error(error);
+  }
   return res.response({
-    status: "You Product Inserted Successfully !",
-    product,
+    status: `Your product added successfully! `,
+    result,
   });
 };
-
-const validate_product = {
+const validator = {
   payload: Joi.object({
     name: Joi.string()
       .min(3)
@@ -26,10 +29,9 @@ const validate_product = {
     operating_system: Joi.string()
       .required()
       .description("Operating System field is Required  for Products"),
-    customer_id: Joi.objectId()
-      .required()
-      .description("Customer Name field is Required  for Products"),
   }),
 };
-
-module.exports = { handler, validate_product };
+module.exports = {
+  handler,
+  validator,
+};

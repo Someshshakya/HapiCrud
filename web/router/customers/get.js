@@ -1,4 +1,6 @@
 "use strict";
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 const customer = require("../../../models/customer");
 
 const handler = async (req, res) => {
@@ -10,4 +12,10 @@ const handler = async (req, res) => {
   });
 };
 
-module.exports = { handler };
+const validateParams = {
+  params: Joi.object({
+    id: Joi.objectId().required(),
+  }),
+};
+
+module.exports = { handler, validateParams };

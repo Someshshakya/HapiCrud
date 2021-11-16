@@ -1,6 +1,6 @@
 "use strict";
-require("dotenv").config({ path: "../../env" });
-const url = process.env.MONGODB_URL;
+const config = require("../../config");
+const url = config.mongodb.url;
 
 const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;

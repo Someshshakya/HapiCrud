@@ -1,3 +1,7 @@
+"use strict";
 const products = require("./products");
 const customer = require("./customers");
-module.exports = [].concat(products, customer);
+const redisProducts = require("./redisProducts");
+const elasticProducts = require("./ElasticSearchProduct");
+
+module.exports = [].concat(products, customer, redisProducts, elasticProducts);

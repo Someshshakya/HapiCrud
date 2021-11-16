@@ -10,35 +10,65 @@ module.exports = [
     path: "/products",
     options: {
       validate: post.validate_product,
+      handler: post.handler,
+      description: "To Create the Products for particular Customer",
+      notes: "Data must be an object to add the Product !",
+      tags: ["api", "Products"],
     },
-    handler: post.handler,
   },
   {
     method: "PUT",
     path: "/products/{id}",
     options: {
-      validate: post.validate_product,
+      validate: { ...post.validate_product, ...get.validateId },
+      handler: put.handler,
+      description: "To Update The product",
+      notes: "Returns the Status of the Product",
+      tags: ["api", "Products"],
     },
-    handler: put.handler,
   },
   {
     method: "GET",
-    path: "/products/{customer_id}/{id?}",
-    handler: get.handler,
-  },
-  {
-    method: "GET",
-    path: "/hello",
+    path: "/products/{customer_id}/{id}",
     options: {
-      handler: (req, h) => {
-        console.log("checing pararms", req.params);
-        return req.params;
-      },
+      handler: get.handler,
+      validate: get.validateParams,
+      description: "To Get product of a particular Customer by  product's  id ",
+      notes: "Returns a Products ",
+      tags: ["api", "Products"],
+    },
+  },
+  {
+    method: "GET",
+    path: "/products/{customer_id}",
+    options: {
+      handler: get.handler,
+      validate: { ...get.validateCustomerId, ...get.headerValidate },
+      description: "To Get All the Products for a particular Customer ",
+      notes: "Returns The Array of Products ",
+      tags: ["api", "Products"],
     },
   },
   {
     method: "DELETE",
-    path: "/products/{customer_id}/{id?}",
-    handler: del.handler,
+    path: "/products/{customer_id}/{id}",
+    options: {
+      handler: del.handler,
+      validate: get.validateParams,
+      description: "To Delete the  Products for particular Customer by id",
+      notes: "Returns The Status of Products",
+      tags: ["api", "Products"],
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/products/{customer_id}",
+    options: {
+      handler: del.handler,
+      validate: get.validateCustomerId,
+      description: "To Delete  All the  Products for particular Customer",
+      notes: "Returns The Status of Products",
+      tags: ["api", "Products"],
+    },
   },
 ];
