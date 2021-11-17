@@ -8,6 +8,7 @@ const handler = async (req, res) => {
   const productDetails = req.params;
   // get the customer id
   const token = req.headers.authorization;
+
   // const customer_id  = jwt.verifyJWT(token);
   // verify and get the customer and set
   const product = await products.getProducts(productDetails);

@@ -1,10 +1,12 @@
 "use strict";
 const redis = require("redis");
-const { promisifyAll } = require("bluebird");
+const config = require("../../config");
+const redisPort = config.redis.port;
+const { promisifyAll } = require("bluebird"); // to make  async
 promisifyAll(redis);
 const client = redis.createClient({
   host: "127.0.0.1",
-  port: 6379,
+  port: redisPort,
 });
 
 client.on("connect", () => console.log("Redis connected Successfuly !"));
