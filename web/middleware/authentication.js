@@ -7,8 +7,9 @@ const genreateJWT = (customer_id) => {
   return token;
 };
 
-const verifyJWT = (token) => {
-  const { customer_id } = jwt.verify(token, secreteKey);
-  return customer_id;
-};
-module.exports = { genreateJWT, verifyJWT };
+// const verifyJWT = (token) => {
+//   const { customer_id } = jwt.verify(token, secreteKey);
+//   return customer_id;
+// };
+
+module.exports = { genreateJWT };

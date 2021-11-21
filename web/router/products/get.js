@@ -5,24 +5,21 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const handler = async (req, res) => {
-  const productDetails = req.params;
-  // get the customer id
-  const token = req.headers.authorization;
+  const token = req.headers.authorization; // recieving token from the headers
+  let productDetails = {};
+  if (req.params.id) {
+    productDetails["id"] = req.params.id;
+  }
+  productDetails["customer_id"] = req.customer_id;
 
-  // const customer_id  = jwt.verifyJWT(token);
-  // verify and get the customer and set
-  const product = await products.getProducts(productDetails);
-  return res.response({
+  // prettier-ignore
+  const product = await products.getProducts(productDetails); // XXX X X X X XXX
+  const response = res.response({
     status: "Here is the List of Products",
     product,
   });
-};
-
-const validateParams = {
-  params: Joi.object({
-    customer_id: Joi.objectId().required(),
-    id: Joi.objectId().required(),
-  }),
+  response.header("Authorization", token); // set the token in the header
+  return response;
 };
 
 const validateCustomerId = {
@@ -43,7 +40,6 @@ const headerValidate = {
 };
 module.exports = {
   handler,
-  validateParams,
   validateCustomerId,
   validateId,
   headerValidate,

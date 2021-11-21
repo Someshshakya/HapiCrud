@@ -9,6 +9,7 @@ module.exports = [
     method: "POST",
     path: "/products",
     options: {
+      auth: "jwt", // to secure the route
       validate: post.validate_product,
       handler: post.handler,
       description: "To Create the Products for particular Customer",
@@ -20,6 +21,7 @@ module.exports = [
     method: "PUT",
     path: "/products/{id}",
     options: {
+      auth: "jwt", // to secure the route
       validate: { ...post.validate_product, ...get.validateId },
       handler: put.handler,
       description: "To Update The product",
@@ -29,10 +31,11 @@ module.exports = [
   },
   {
     method: "GET",
-    path: "/products/{customer_id}/{id}",
+    path: "/products/{id}",
     options: {
+      auth: "jwt", // to secure the route
       handler: get.handler,
-      validate: get.validateParams,
+      validate: get.validateId,
       description: "To Get product of a particular Customer by  product's  id ",
       notes: "Returns a Products ",
       tags: ["api", "Products"],
@@ -40,10 +43,11 @@ module.exports = [
   },
   {
     method: "GET",
-    path: "/products/{customer_id}",
+    path: "/products",
     options: {
       handler: get.handler,
-      validate: { ...get.validateCustomerId, ...get.headerValidate },
+      auth: "jwt", // to secure the route
+      validate: get.headerValidate,
       description: "To Get All the Products for a particular Customer ",
       notes: "Returns The Array of Products ",
       tags: ["api", "Products"],
@@ -51,10 +55,11 @@ module.exports = [
   },
   {
     method: "DELETE",
-    path: "/products/{customer_id}/{id}",
+    path: "/products/{id}",
     options: {
+      auth: "jwt", // to secure the route
       handler: del.handler,
-      validate: get.validateParams,
+      validate: get.validateId,
       description: "To Delete the  Products for particular Customer by id",
       notes: "Returns The Status of Products",
       tags: ["api", "Products"],
@@ -62,10 +67,10 @@ module.exports = [
   },
   {
     method: "DELETE",
-    path: "/products/{customer_id}",
+    path: "/products",
     options: {
+      auth: "jwt", // to secure the route
       handler: del.handler,
-      validate: get.validateCustomerId,
       description: "To Delete  All the  Products for particular Customer",
       notes: "Returns The Status of Products",
       tags: ["api", "Products"],

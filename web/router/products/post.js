@@ -4,6 +4,8 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const handler = async (req, res) => {
   const product_data = req.payload;
+  product_data["customer_id"] = req.customer_id;
+
   const product = await products.postProducts(product_data);
   return res.response({
     status: "You Product Inserted Successfully !",
@@ -26,9 +28,9 @@ const validate_product = {
     operating_system: Joi.string()
       .required()
       .description("Operating System field is Required  for Products"),
-    customer_id: Joi.objectId()
-      .required()
-      .description("Customer Name field is Required  for Products"),
+    // customer_id: Joi.objectId()
+    //   .required()
+    //   .description("Customer Name field is Required  for Products"),
   }),
 };
 

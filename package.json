@@ -17,6 +17,7 @@
     "bluebird": "^3.7.2",
     "dotenv": "^10.0.0",
     "elasticsearch": "^16.7.2",
+    "hapi-auth-jwt2": "^10.2.0",
     "hapi-swagger": "^14.2.4",
     "joi": "^17.4.2",
     "joi-objectid": "^4.0.2",
