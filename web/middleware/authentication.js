@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
-const secreteKey = "yourSecrete";
+const jwt = require('jsonwebtoken')
+const secreteKey = 'yourSecrete'
 
-const genreateJWT = (customer_id) => {
-  const payload = { customer_id };
-  const token = jwt.sign(payload, secreteKey);
-  return token;
-};
+const genreateJWT = (customerId) => {
+  const payload = { customerId }
+  const token = jwt.sign(payload, secreteKey)
+  return token
+}
 
-module.exports = { genreateJWT };
+module.exports = { genreateJWT }

@@ -1,3 +1,3 @@
-"use strict";
-const customer = require("./customer");
-module.exports = customer;
+'use strict'
+const customer = require('./customer')
+module.exports = customer

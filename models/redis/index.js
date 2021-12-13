@@ -1,3 +1,3 @@
-"use strict";
-const redis = require("./redis");
-module.exports = redis;
+'use strict'
+const redis = require('./redis')
+module.exports = redis

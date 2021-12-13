@@ -1,4 +1,4 @@
-"use strict";
-var elasticSearch = require("./elasticSearch");
+'use strict'
+var elasticSearch = require('./elasticSearch')
 
-module.exports = elasticSearch;
+module.exports = elasticSearch

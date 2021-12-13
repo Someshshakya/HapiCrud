@@ -1,3 +1,3 @@
-"use strict";
-const server = require("./server");
-server.initilize(); // start the server
+'use strict'
+const server = require('./server')
+server.startServer() // start the server

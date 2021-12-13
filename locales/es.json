@@ -1,0 +1,11 @@
+{
+    "signUp": {
+    "200": "¡Se ha registrado correctamente!",
+    "402": "Se requiere nombre de usuario",
+    "405": "Su cuenta se eliminó, comuníquese con nuestro soporte para más consultas",
+    "410": "Se requiere correo electrónico",
+    "411": "número de móvil obligatorio",
+    "414": "contraseña requerida",
+    "410e": "Correo electrónico no válido"
+    }
+    }

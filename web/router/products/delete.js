@@ -1,14 +1,14 @@
-"use strict";
-const products = require("../../../models/products");
+'use strict'
+const products = require('../../../models/products')
 
 const handler = async (req, res) => {
-  const product_d = req.params;
-  product_d["customer_id"] = req.customer_id;
-  const product = await products.deleteProduct(product_d);
+  const productData = req.params
+  productData.customer_id = req.customer_id
+  const product = await products.deleteProduct(productData)
   return res.response({
-    status: "Your Product Deleted Successfully !",
-    product,
-  });
-};
+    status: 'Your Product Deleted Successfully !',
+    product
+  })
+}
 
-module.exports = { handler };
+module.exports = { handler }

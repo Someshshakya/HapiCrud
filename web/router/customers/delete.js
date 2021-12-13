@@ -1,13 +1,13 @@
-"use strict";
-const customer = require("../../../models/customer");
+'use strict'
+const customer = require('../../../models/customer')
 
 const handler = async (req, res) => {
-  const customer_id = req.params.id;
-  const result = await customer.deleteCustomer(customer_id);
+  const customerId = req.params.id
+  const result = await customer.deleteCustomer(customerId)
   return res.response({
-    status: "❌️ Customer Deleted Successfully !",
-    result,
-  });
-};
+    status: '❌️ Customer Deleted Successfully !',
+    result
+  })
+}
 
-module.exports = { handler };
+module.exports = { handler }

@@ -1,0 +1,23 @@
+{
+	"signUp": {
+		"200": "You have successfully Signed Up !",
+		"402": "Username is required",
+		"403": "Only Normal Sign up is available for the moment!",
+		"405": "Your account is deleted, please contact our support for further queries.",
+		"410": "Email required",
+		"411": "mobile number required",
+		"413": "signUp.413",
+		"414": "password required",
+		"410e": "Invalid Email"
+	},
+	"common": {
+		"response": {
+			"200": "Success",
+			"400": "%s field missing/invalid",
+			"401": "Unauthorized Access, Please Login.",
+			"404": "Data Not Found",
+			"406": "Token Expired.",
+			"500": "Internal server error"
+		}
+	}
+}

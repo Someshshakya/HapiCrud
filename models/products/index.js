@@ -1,3 +1,3 @@
-"use strict";
-const products = require("./products");
-module.exports = products;
+'use strict'
+const products = require('./products')
+module.exports = products
