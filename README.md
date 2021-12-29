@@ -7,15 +7,18 @@
 	npm install
 
 ## Configure app
-- Create .env file and set all evironment variables
-```sh
+ Create .env file and set all evironment variables
+
 
 #------------------------------------------------#
 #==================== Defualt ===================#
 #------------------------------------------------#
 NODE_ENV=development
+
 PROCESS_TYPE=web
+
 PORT=3821
+
 JWT_KEY="your key"
 VERSION='/v1'
 
