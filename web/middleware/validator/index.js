@@ -7,7 +7,7 @@ const Joi = require('joi')
  */
 const headerAuthValidator = Joi.object({
   authorization: Joi.string()
-    .description('authorization'),
+    .description('authorization for customers'),
   language: Joi.string()
     .default('en')
     .description('language')

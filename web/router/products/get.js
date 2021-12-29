@@ -6,8 +6,8 @@ Joi.objectId = require('joi-objectid')(Joi)
 const handler = async (req, res) => {
   const token = req.headers.authorization // recieving token from the headers
   const productDetails = {}
-  if (req.params.id) {
-    productDetails.id = req.params.id
+  if (req.query.id) {
+    productDetails.id = req.query.id
   }
   productDetails.customer_id = req.customer_id
 
@@ -21,25 +21,16 @@ const handler = async (req, res) => {
   return response
 }
 
-const validateCustomerId = {
-  params: Joi.object({
-    customer_id: Joi.objectId().required()
-  })
-}
-const validateId = {
-  params: Joi.object({
-    id: Joi.objectId().required()
-  })
-}
+const validateCustomerId = Joi.object({
+  customer_id: Joi.objectId().required()
+})
 
-const headerValidate = {
-  headers: Joi.object({
-    authorization: Joi.string().required()
-  }).unknown()
-}
+const validateId = Joi.object({
+  id: Joi.objectId().required()
+})
+
 module.exports = {
   handler,
   validateCustomerId,
-  validateId,
-  headerValidate
+  validateId
 }
