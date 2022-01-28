@@ -1,0 +1,40 @@
+{
+	"signUp": {
+		"200": "You have successfully Signed Up !",
+		"402": "Username is required",
+		"403": "Only Normal Sign up is available for the moment!",
+		"405": "Your account is deleted, please contact our support for further queries.",
+		"409": "User Already Exists",
+		"410": "Email required",
+		"411": "mobile number required",
+		"414": "password required",
+		"500": "Internal Server Error",
+		"410e": "Invalid Email"
+	},
+	"updateCusomter": {
+		"200": "updated Successfuly "
+	},
+	"deleteCustomer":{
+		"200" : "Deleted Successfuly ",
+		"404" : "Sorry ! This Customer does not exists  "
+	},
+	
+	"common": {
+		"response": {
+			"200": "Success",
+			"400": "%s field missing/invalid",
+			"401": "Unauthorized Access, Please Login.",
+			"404": "Data you have requsted is Not Found.",
+			"406": "Token Expired.",
+			"500": "Internal server error"
+		},
+		"responseDescription": {
+			"200": "This will get while request successfully executed.",
+			"400": "Bad request while some data is missing or invalid.",
+			"401": "This will occur while refresh token is expired or blacklisted.",
+			"404": "This will occur while requested data not found.",
+			"406": "This will occur while auth token is expired.",
+			"500": "This error occur while internal server error."
+		}
+	}
+}
