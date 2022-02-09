@@ -1,45 +1,53 @@
 'use strict'
-const customer = require('../../../models/customer')
-const { ObjectId } = require('mongodb')
-const { errorLogger } = require('../../../utils/logger')
+/**
+ * @global
+ */
 const Joi = require('joi')
-const i18n = require('../../../locales/locales')
+const { ObjectId } = require('mongodb')
+Joi.objectId = require('joi-objectid')(Joi)
 
+/**
+ * @namspace
+ */
+const customer = require('../../../../models/customer')
+const { errorLogger } = require('../../../../utils/logger')
+const i18n = require('../../../../locales/locales')
+
+/**
+ * @author Somesh Shakya
+ * @description This API Handler allows user to get the custome details
+ * @param {*} req
+ * @param {*} h
+ */
 const handler = async (req, h) => {
-  const updatedData = () => new Promise(async(resolve, reject) => {
-    await customer.updateCustomer(req.query.id, req.payload) // pasing customer id and the data to be updated
-    const filter = { _id: ObjectId(req.query.id) }
-    const project = { projection: { password: 0 } }
-    const data = await customer.getCustomer(filter, project)
-    if (data) {
-      resolve(data)
-    } else {
-      reject({ message: req.i18n.__('common.response.404'), code: 404 })
+  let params = {}
+  if (req.query.id !== undefined && req.query.id !== 'null') {
+    params = { _id: ObjectId(req.query.id) }
+  }
+  try {
+    const result = await customer.getCustomer(params)
+    if (result.length === 0) {
+      return h.response({ message: req.i18n.__('common.response.404') }).code(404)
     }
-  })
-  return updatedData()
-    .then(data => {
-      return h.response({ message: req.i18n.__('updateCusomter.200'), data }).code(200)
-    })
-    .catch(err => {
-      if (err instanceof Error) {
-        errorLogger('--err---', err)
-        return h.response({ message: req.i18n.__('common.response.500') }).code(500)
-      } else {
-        return h.response({ message: err.message }).code(err.code)
-      }
-    })
+    return h.response({ message: req.i18n.__('common.response.200'), result }).code(200)
+  } catch (error) {
+    errorLogger('--err---', error)
+  }
 }
+
+const validateId = Joi.object({
+  id: Joi.objectId().description('Customer Id')
+})
 
 const responseValidate = {
   status: {
-    500: Joi.object({
-      message: Joi.any().example(i18n.__('common.response.500'))
-    }).description(i18n.__('common.responseDescription.500')),
     200: Joi.object({
-      message: Joi.any().example(i18n.__('updateCusomter.200')),
+      message: Joi.any()
+        .example(i18n.__('common.response.200')),
       data: Joi.object({
-        _id: '5dfcd86c2ffb45bc6b593cac',
+        _id: Joi.objectId()
+          .description('_id unique id for each user')
+          .example('61caa96378e697fa2ee9df48'),
         userName: Joi.string()
           .description('UserName field is Required  for Customers')
           .example('someshshakya'),
@@ -88,8 +96,15 @@ const responseValidate = {
             then: Joi.required()
           })
       })
-    }).description(i18n.__('common.responseDescription.200'))
+    }).description(i18n.__('common.responseDescription.200')),
+    404: Joi.object({
+      message: Joi.any().example(i18n.__('common.response.404'))
+    }).description(i18n.__('common.responseDescription.404'))
   },
   failAction: 'log'
 }
-module.exports = { handler, responseValidate }
+module.exports = {
+  handler,
+  validateId,
+  responseValidate
+}

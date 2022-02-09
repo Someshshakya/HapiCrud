@@ -14,7 +14,6 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
     "@hapi/inert": "^6.0.4",
-    "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^6.1.0",
     "bcrypt": "^5.0.1",
     "bluebird": "^3.7.2",
@@ -23,7 +22,7 @@
     "hapi-auth-jwt2": "^10.2.0",
     "hapi-i18n": "^3.0.1",
     "hapi-swagger": "^14.2.4",
-    "joi": "^17.4.2",
+    "joi": "^17.6.0",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.4",

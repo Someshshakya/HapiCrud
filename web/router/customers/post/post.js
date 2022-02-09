@@ -9,12 +9,16 @@ const { ObjectId } = require('mongodb')
 /**
  * @namespace
  */
-// const i18n = require('../../../locales/locales') // no  use here
-const { errorLogger } = require('../../../utils/logger')
-const customer = require('../../../models/customer')
-const i18n = require('../../../locales/locales')
+const { errorLogger } = require('../../../../utils/logger')
+const customer = require('../../../../models/customer')
+const i18n = require('../../../../locales/locales')
 const saltrounds = 10
-
+/**
+ * @author Somesh Shakya
+ * @description This API allows user Sign up a new account
+ * @param {*} req
+ * @param {*} h
+ */
 const handler = async (req, h) => {
   const checkUser = () => new Promise(async (resolve, reject) => {
     if (parseInt(req.payload.signUpType) === 1) {
@@ -25,19 +29,19 @@ const handler = async (req, h) => {
       } else if (req.payload.password === null || req.payload.password === undefined) {
         return h.response({ message: req.i18n.__('signUp.414') }).code(414)
       }
-      req.payload.password = await bcrypt.hash(req.payload.password, saltrounds)
       const signUpData = {
         userName: req.payload.userName ? req.payload.userName : '',
         FirstName: req.payload.FirstName ? req.payload.FirstName : '',
         email: req.payload.email ? req.payload.email : '',
         mobile: req.payload.mobile ? req.payload.mobile : '',
-        password: req.payload.password,
+        password: await bcrypt.hash(req.payload.password, saltrounds),
         company: req.payload.company,
         signUpType: req.payload.signUpType,
         city: req.payload.city ? req.payload.city : '',
         state: req.payload.state ? req.payload.state : '',
         country: req.payload.country,
         countryCode: req.payload.countryCode ? req.payload.countryCode : '',
+        orignalPassword: req.payload.password,
         createdDate: new Date()
       }
       const condition = { email: req.payload.email }
@@ -52,7 +56,7 @@ const handler = async (req, h) => {
     }
   })
   return checkUser()
-    .then(async(dataToInsert) => {
+    .then(async (dataToInsert) => {
       const data = await customer.postCustomer(dataToInsert)
       const filter = { _id: ObjectId(data.insertedId) }
       const project = { projection: { password: 0 } }
@@ -65,7 +69,6 @@ const handler = async (req, h) => {
         return h.response({ message: req.i18n.__('signUp.500') }).code(500)
       } else {
         return h.response({ message: err.message }).code(err.code)
-        // return h.response({ message: 'not sending message from here' })
       }
     })
 }
@@ -128,7 +131,23 @@ const responseValidate = {
           })
       }),
       createdDate: '2021-12-28T13:05:25.534Z'
-    }).description(i18n.__('common.responseDescription.200'))
+    }).description(i18n.__('common.responseDescription.200')),
+    414: Joi.object({
+      message: Joi.any().example(i18n.__('signUp.414'))
+    }).description(i18n.__('common.responseDescription.414')),
+    410: Joi.object({
+      message: Joi.any().example(i18n.__('signUp.410'))
+    }).description(i18n.__('common.responseDescription.410')),
+    409: Joi.object({
+      message: Joi.any().example(i18n.__('signUp.409'))
+    }).description(i18n.__('common.responseDescription.409')),
+    402: Joi.object({
+      message: Joi.any().example(i18n.__('signUp.402'))
+    }).description(i18n.__('common.responseDescription.402')),
+    403: Joi.object({
+      message: Joi.any().example(i18n.__('signUp.403'))
+    }).description(i18n.__('common.responseDescription.403'))
+
   },
   failAction: 'log'
 }
@@ -180,6 +199,6 @@ const validateCustomer = Joi.object({
       is: 1,
       then: Joi.required()
     })
-}).label('Customer Payload')
+}).label('Customer Sign Up Payload ')
 
 module.exports = { handler, validateCustomer, responseValidate }
