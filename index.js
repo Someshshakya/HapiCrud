@@ -1,7 +1,8 @@
 'use strict'
 // require the dotev
 require('dotenv').config({ path: '.env' })
-//made changes
+
+// from vs code
 const type = process.env.PROCESS_TYPE
 if (type === 'web') {
   require('./web')
@@ -11,4 +12,4 @@ if (type === 'web') {
   throw new Error(`${type} is an unsupported process type.`)
 }
 
-//from ui
+// from ui
