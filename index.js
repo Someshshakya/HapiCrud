@@ -2,6 +2,7 @@
 // require the dotev
 require('dotenv').config({ path: '.env' })
 
+// from vs code
 const type = process.env.PROCESS_TYPE
 if (type === 'web') {
   require('./web')
